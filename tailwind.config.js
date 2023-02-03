@@ -20,6 +20,9 @@ module.exports = {
       fontFamily: {
         'inter': 'Inter',
         'avenir': 'Sen'
+      },
+      shadow: {
+        card: '0px 4px 20px rgba(0, 0, 0, 0.05)'
       }
     },
   },

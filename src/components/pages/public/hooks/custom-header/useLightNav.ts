@@ -8,7 +8,7 @@ export default function useLightNav(){
         set({
             isUseWhiteLoginButton: true,
             navStyle: {
-                background: "transparent"
+                background: "white"
             }
         })
     }, [set])
