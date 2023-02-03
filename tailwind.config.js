@@ -14,7 +14,8 @@ module.exports = {
         'system': '#FFA48F'
       },
       colors: {
-        'system': '#FFA48F'
+        'system': '#FFA48F',
+        'error': "#EB5757"
       },
       fontFamily: {
         'inter': 'Inter',

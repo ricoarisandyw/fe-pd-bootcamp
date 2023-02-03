@@ -19,8 +19,10 @@ export default function Home() {
         backgroundSize: "cover"
       }}>
         <div className='max-w-[800px] m-auto pt-[222px] pb-[227px] text-white'>
-          <div className='text-center font-avenir font-extrabold leading-[52px] text-[54px]'>
-            Find your best place in your town, for your special day
+          <div className='text-center font-avenir font-extrabold leading-[52px] text-[54px] z-2 relative'>
+            Find your best place in your town, for your <span className={['relative z-2',
+                'after:z-[-1] after:rotate-[-4deg] after:absolute after:top-0 after:left-0 after:ml-[50%] after:mr-[50%] after:translate-x-[-50%] after:mt-4  after:bg-[#FFA48F] after:w-[289px] after:h-[28px]'
+              ].join(' ')}>special day</span>
           </div>
           <div className='mt-[12px] text-center'>
             Showing results for Venue vendors in Jakarta, Indonesia
@@ -62,11 +64,11 @@ export default function Home() {
           </div>
         </div>
         <div className='grid grid-cols-4 gap-x-[46px] gap-y-[38px] mt-[32px]'>
-          {Array.from(Array(7)).map((_, i) => <ItemBestVenue key={i + " hotel ciputra"} image='/images/city.jpg' reviews={20} star={3} venueName="Hotel Ciputra World Surabaya" />)}
+          {Array.from(Array(7)).map((_, i) => <ItemBestVenue key={i + " hotel ciputra"} image='/images/venue.png' reviews={20} star={3} venueName="Hotel Ciputra World Surabaya" />)}
         </div>
       </div>
       {/* CHAT ADMIN */}
-      <div className='max-w-[1260px] mt-[103px] px-[90px] mb-[170px] flex'>
+      <div className='max-w-[1260px] mt-[103px] px-[90px] mb-[170px] flex mx-auto'>
         <RoundedButton className='rounded-full text-white flex px-[20px] py-[12px] mx-auto'>
           <IconChat />
           <span className='ml-[8px] my-auto'>Chat Admin</span>

@@ -1,3 +1,4 @@
+import Modal from '@/components/pages/public/Modal'
 import Nav from '@/components/pages/public/Nav'
 import './globals.css'
 
@@ -16,6 +17,8 @@ export default function RootLayout({
       <body>
         <Nav />
         {children}
+        {/* GLOBAL MODAL */}
+        <Modal />
       </body>
     </html>
   )
