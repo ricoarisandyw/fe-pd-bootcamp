@@ -1,16 +1,19 @@
-import PrimaryButton from '@/components/button/PrimaryButton'
-import RoundedButton from '@/components/button/RoundedButton'
-import Dropdown from '@/components/form/Dropdown'
-import IconChat from '@/components/icon/IconChat'
-import ItemBestVenue from '@/components/pages/home/ItemBestVenue'
-import ItemNearby from '@/components/pages/home/ItemNearby'
-import Footer from '@/components/pages/public/Footer'
-import { Inter } from '@next/font/google'
-import Image from 'next/image'
+'use client';
 
-const inter = Inter({ subsets: ['latin'] })
+import PrimaryButton from '@/components/button/PrimaryButton';
+import RoundedButton from '@/components/button/RoundedButton';
+import Dropdown from '@/components/form/Dropdown';
+import IconChat from '@/components/icon/IconChat';
+import ItemBestVenue from '@/components/pages/home/ItemBestVenue';
+import ItemNearby from '@/components/pages/home/ItemNearby';
+import Footer from '@/components/pages/public/Footer';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
+  const router = useRouter()
+  const handleClickLihatSemua = () => router.push('/venue')
+
   return (
     <main>
       {/* HERO SECTION */}
@@ -60,7 +63,7 @@ export default function Home() {
             <div className='font-black text-[24px] mt-[12px] text-[#828282] font-avenir'>Lihat rekomendasi dengan berbagai macam budget</div>
           </div>
           <div className='my-auto'>
-            <a className='font-black text-[24px] text-system border-b border-b-system border-solid'>Lihat semua venue</a>
+            <a onClick={handleClickLihatSemua} className='cursor-pointer font-black text-[24px] text-system border-b border-b-system border-solid'>Lihat semua venue</a>
           </div>
         </div>
         <div className='grid grid-cols-4 gap-x-[46px] gap-y-[38px] mt-[32px]'>

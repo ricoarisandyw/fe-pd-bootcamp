@@ -9,7 +9,7 @@ interface TypeModalState {
 }
 
 const useModal = create<TypeModalState>((set) => ({
-    show: true,
+    show: false,
     showModal: (children) => set({ children, show: true }),
     hideModal: () => {
         set({ show: false })
