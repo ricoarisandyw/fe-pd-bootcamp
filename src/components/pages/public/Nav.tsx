@@ -28,10 +28,10 @@ export default function Nav() {
         <div className="flex ml-auto">
             {isUseWhiteLoginButton ? <SecondaryWhiteButton onClick={handleClickLogin} className="flex gap-[12px] !border-system text-system">
                 <IconPersonPink />
-                <span className="my-auto">White</span>
+                <span className="my-auto">Login</span>
             </SecondaryWhiteButton> : <SecondaryWhiteButton onClick={handleClickLogin} className="flex gap-[12px]">
                 <IconPerson />
-                <span className="my-auto">Login</span>
+                <span className="my-auto">Sign Up</span>
             </SecondaryWhiteButton>}
 
             <PrimaryButton className="text-white flex ml-[24px] gap-[12px]" onClick={handleClickSignup}>
