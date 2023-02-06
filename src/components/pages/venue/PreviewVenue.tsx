@@ -9,11 +9,16 @@ import TVenue from "@/components/types/TVenue";
 import ObjectUtils from "@/utils/ObjectUtils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import useModal from "../public/hooks/useModal";
 
 export default function PreviewVenue(venue: TVenue) {
     const router = useRouter()
+    const { hideModal } = useModal()
 
-    const handleClickVenue = () => router.push('/venue/id')
+    const handleClickVenue = () => {
+        hideModal()
+        router.push('/venue/id')
+    }
 
     return <div>
         <div className="flex">
@@ -75,7 +80,7 @@ Scelerisque maecenas gravida morbi bibendum in lectus. Sed sit a sit faucibus. M
             </div>
             <div className="mt-8 grid grid-cols-2 gap-y-8 gap-x-5">
                 {ObjectUtils.multiply(4, {}).map((_,i) => (
-                    <div onClick={handleClickVenue} key={i} className="shadow-card border border-solid border-[#E0E0E0] rounded-[20px] h-[312px] w-full overflow-hidden relative">
+                    <div onClick={handleClickVenue} key={i} className="cursor-pointer shadow-card border border-solid border-[#E0E0E0] rounded-[20px] h-[312px] w-full overflow-hidden relative">
                         <Image src={'/images/venue.png'} alt="thumbnail" width={566} height={210} className="w-full object-cover" />
                         <div className="flex pt-[18px] pb-[27px] px-6 absolute left-0 bottom-0 bg-white w-full">
                             <div className="flex-1">

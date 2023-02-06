@@ -23,7 +23,7 @@ export default function Home() {
       }}>
         <div className='max-w-[800px] m-auto pt-[222px] pb-[227px] text-white'>
           <div className='text-center font-avenir font-extrabold leading-[52px] text-[54px] z-2 relative'>
-            Find your best place in your town, for your <span className={['relative z-2',
+            Find your best place in your town, for your <span className={['relative z-[5]',
                 'after:z-[-1] after:rotate-[-4deg] after:absolute after:top-0 after:left-0 after:ml-[50%] after:mr-[50%] after:translate-x-[-50%] after:mt-4  after:bg-[#FFA48F] after:w-[289px] after:h-[28px]'
               ].join(' ')}>special day</span>
           </div>
