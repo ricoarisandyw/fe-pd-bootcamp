@@ -1,6 +1,8 @@
 'use client';
 
+import AuthService from "@/service/AuthService";
 import ObjectUtils from "@/utils/ObjectUtils";
+import useWaiter from "@/utils/useWaiter";
 import ValidationUtils from "@/utils/ValidationUtils";
 import { Field, Formik } from "formik";
 import { useState } from "react";
@@ -14,21 +16,37 @@ const initialValue = {
 }
 
 export default function FormSignUp() {
+    const waiter = useWaiter()
     const [isValid, setValid] = useState(false)
     const [isPasswordInvalid, setPasswordInvalid] = useState(false)
 
     const handleSubmit = (value: typeof initialValue) => {
-        console.log(value)
+        waiter.do.load();
         setTimeout(() => {
-            setPasswordInvalid(true)
-        }, 1000)
+            AuthService.register({
+                data: {
+                  email: 'arisandyrico@gmail.com',
+                  fullname: 'ricoaw',
+                  password: "12341234"
+                }
+            }).then(() => {
+                waiter.do.finish()
+            }).catch(() => {
+                waiter.do.error()
+            })
+        }, 3000)
     }
 
     const handleValidation = (value: typeof initialValue) => {
         const error = {}
         if(ValidationUtils.isEmpty(value.email)) ObjectUtils.set(error, 'email', 'please fill this field')
         if(ValidationUtils.isEmpty(value.fullname)) ObjectUtils.set(error, 'fullname', 'please fill this field')
+
+        // password validation
         if(ValidationUtils.isEmpty(value.password)) ObjectUtils.set(error, 'password', 'please fill this field')
+        else if (!ValidationUtils.containCharacter(value.password)) ObjectUtils.set(error, 'password', 'password must contain character')
+        else if (!ValidationUtils.containNumber(value.password)) ObjectUtils.set(error, 'password', 'password must contain number')
+        else if (value.password.length < 12) ObjectUtils.set(error, 'password', 'password must at least 12 character')
 
         if(Object.keys(error).length) setValid(false)
         else setValid(true)
@@ -61,8 +79,8 @@ export default function FormSignUp() {
                 <Field type="checkbox" className="border rounded-[4px] w-[20px] h-[20px]" />
                 <span className="ml-[12px]">Get email from our teams, to received venue updates, news, promo, and events. <a className="text-system">Privacy Policy</a></span>
             </div>
-            <PrimaryButton type="submit" className={`!rounded-[8px] text-white py-[16px] font-inter font-medium text-[16px] ${!isValid && 'bg-[#E0E0E0]'}`}>
-                Create Account
+            <PrimaryButton type="submit" disabled={waiter.status.loading} className={`!rounded-[8px] text-white py-[16px] font-inter font-medium text-[16px] ${!isValid && 'bg-[#E0E0E0]'} ${waiter.status.loading && "bg-gray-400 cursor-not-allowed"}`}>
+                {waiter.status.loading ? "Please wait . . ." : "Create Account"}
             </PrimaryButton>
         </form>}
     </Formik>

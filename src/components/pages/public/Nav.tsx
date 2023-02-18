@@ -31,7 +31,7 @@ export default function Nav() {
                 <span className="my-auto">Login</span>
             </SecondaryWhiteButton> : <SecondaryWhiteButton onClick={handleClickLogin} className="flex gap-[12px]">
                 <IconPerson />
-                <span className="my-auto">Sign Up</span>
+                <span className="my-auto">Login</span>
             </SecondaryWhiteButton>}
 
             <PrimaryButton className="text-white flex ml-[24px] gap-[12px]" onClick={handleClickSignup}>

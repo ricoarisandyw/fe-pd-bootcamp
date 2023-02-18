@@ -7,10 +7,24 @@ import IconChat from '@/components/icon/IconChat';
 import ItemBestVenue from '@/components/pages/home/ItemBestVenue';
 import ItemNearby from '@/components/pages/home/ItemNearby';
 import Footer from '@/components/pages/public/Footer';
+import CityService from '@/service/CityService';
+import VenueService from '@/service/VenueService';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import useSWR from 'swr';
 
 export default function Home() {
+  // SWR is cool library that will chace our response in 'getVenue' key.
+  const { data } = useSWR('getVenue', async () => {
+    const [all, nearby] = await Promise.all([
+      VenueService.getVenue(),
+      CityService.nearby()
+    ])
+    return {
+      all,
+      nearby
+    }
+  })
   const router = useRouter()
   const handleClickLihatSemua = () => router.push('/venue')
 
@@ -44,7 +58,7 @@ export default function Home() {
           Explore nearby
         </div>
         <div className='grid grid-cols-4 gap-x-[16px] gap-y-[40px] mt-[40px]'>
-          {Array.from(Array(7)).map((_, i) => <ItemNearby key={i} image='/images/city.jpg' location='Surabya' venueSize='15' />)}
+          {data?.nearby?.data.nearbies.map((near, i) => <ItemNearby key={i} image={near.thumbnailUrl} location={near.cityName} venueSize={near.totalVenue} />)}
         </div>
       </div>
       {/* BANNER */}
@@ -67,7 +81,7 @@ export default function Home() {
           </div>
         </div>
         <div className='grid grid-cols-4 gap-x-[46px] gap-y-[38px] mt-[32px]'>
-          {Array.from(Array(7)).map((_, i) => <ItemBestVenue key={i + " hotel ciputra"} image='/images/venue.png' reviews={20} star={3} venueName="Hotel Ciputra World Surabaya" />)}
+          {data?.all?.data.venues.map((venue) => <ItemBestVenue key={venue.name} {...venue} />)}
         </div>
       </div>
       {/* CHAT ADMIN */}

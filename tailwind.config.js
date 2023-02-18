@@ -23,7 +23,7 @@ module.exports = {
       },
       shadow: {
         card: '0px 4px 20px rgba(0, 0, 0, 0.05)'
-      }
+      },
     },
   },
   plugins: [],

@@ -7,3 +7,7 @@
 select {
     -webkit-appearance: none;
 }
+
+.overflow-overlay {
+    overflow-y: overlay;
+}

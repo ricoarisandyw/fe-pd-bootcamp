@@ -1,6 +1,8 @@
 'use client';
 
+import AuthService from "@/service/AuthService";
 import ObjectUtils from "@/utils/ObjectUtils";
+import useWaiter from "@/utils/useWaiter";
 import ValidationUtils from "@/utils/ValidationUtils";
 import { Field, Formik } from "formik";
 import { useState } from "react";
@@ -16,15 +18,25 @@ const initialValue = {
 }
 
 export default function FormLogin() {
+    const waiter = useWaiter()
     const { showModal } = useModal()
     const [isValid, setValid] = useState(false)
     const [isPasswordInvalid, setPasswordInvalid] = useState(false)
 
     const handleSubmit = (value: typeof initialValue) => {
-        console.log(value)
+        waiter.do.load();
         setTimeout(() => {
-            setPasswordInvalid(true)
-        }, 1000)
+            AuthService.login({
+                data: {
+                  email: 'arisandyrico@gmail.com',
+                  password: "12341234"
+                }
+            }).then(() => {
+                waiter.do.finish()
+            }).catch(() => {
+                waiter.do.error()
+            })
+        }, 3000)
     }
 
     const handleValidation = (value: typeof initialValue) => {
@@ -56,8 +68,8 @@ export default function FormLogin() {
                 {formik.errors.password && <span className="text-error">{formik.errors.password}</span>}
                 {isPasswordInvalid && <span className="text-error">your password is invalid</span>}                
             </div>
-            <PrimaryButton type="submit" className={`!rounded-[8px] text-white py-[16px] font-inter font-medium text-[16px] ${!isValid && 'bg-[#E0E0E0]'}`}>
-                Sign In
+            <PrimaryButton type="submit" disabled={waiter.status.loading} className={`!rounded-[8px] text-white py-[16px] font-inter font-medium text-[16px] ${!isValid && 'bg-[#E0E0E0]'} ${waiter.status.loading && "bg-gray-400 cursor-not-allowed"}`}>
+                {waiter.status.loading ? "Please wait . . ." : "Sign In"}
             </PrimaryButton>
             <div className="flex">
                 <span className="cursor-pointer mx-auto">{`Don't have an account?`} <span onClick={handleClickCreateAccount} className="text-system">Create Account</span></span>
