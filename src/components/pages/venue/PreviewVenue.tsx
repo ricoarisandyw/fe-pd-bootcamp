@@ -18,10 +18,12 @@ export default function PreviewVenue(venue: Venue) {
     const { hideModal } = useModal()
     const { data } = useSWR(`getVenue/${venue.id}`, () => VenueService.getVenueDetail(venue.id))
 
-    const handleClickVenue = () => {
+    const handleClickVenue = (id: number) => () => {
         hideModal()
-        router.push('/venue/id')
+        router.push('/venue/' + id)
     }
+
+    const handleChatAdmin = () => window.open("https://wa.me/"+data?.data.venue.phone, '_blank')
 
     return <div>
         <div className="flex">
@@ -37,7 +39,7 @@ export default function PreviewVenue(venue: Venue) {
                 </div>
             </div>
             <div>
-                <button className="bg-system h-[48px] rounded-full px-5 py-3 flex">
+                <button className="bg-system h-[48px] rounded-full px-5 py-3 flex" onClick={handleChatAdmin}>
                     <span className="my-auto">
                         <IconChat />
                     </span>
@@ -77,12 +79,12 @@ export default function PreviewVenue(venue: Venue) {
                 </p>
             </div>
             {data?.data.venue.categories.map((category) => <>
-                <div className="mt-12 text-[22px] font-semibold">
+                <div className="mt-12 text-[22px] font-semibold truncate">
                     {category.description}
                 </div>
                 <div className="mt-8 grid grid-cols-2 gap-y-8 gap-x-5">
                     {category.packages.map((pack, i) => (
-                        <div onClick={handleClickVenue} key={i} className="cursor-pointer shadow-card border border-solid border-[#E0E0E0] rounded-[20px] h-[312px] w-full overflow-hidden relative">
+                        <div onClick={handleClickVenue(pack.id)} key={i} className="cursor-pointer shadow-card border border-solid border-[#E0E0E0] rounded-[20px] h-[312px] w-full overflow-hidden relative">
                             <Image src={pack.thumbnailUrl} alt="thumbnail" width={566} height={210} className="w-full object-cover" />
                             <div className="flex pt-[18px] pb-[27px] px-6 absolute left-0 bottom-0 bg-white w-full">
                                 <div className="flex-1">

@@ -1,5 +1,4 @@
 
-import config from "@/utils/config";
 import AppFetch from "./core/Service";
 import { ReqBase } from "./core/types";
 
@@ -14,7 +13,7 @@ const AuthService = {
             fullname: string
             accessToken: string
         }
-    }>(config.API_URL + "/register", {
+    }>("/register", {
         method: "POST",
         body: JSON.stringify(body)
     }),
@@ -22,7 +21,13 @@ const AuthService = {
     login: (body: ReqBase<{
         email: string
         password: string
-    }>) => AppFetch(config.API_URL + "/login", {
+    }>) => AppFetch<{
+        account: {
+            email: string
+            fullname: string
+            accessToken: string
+        }
+    }>("/login", {
         method: "POST",
         body: JSON.stringify(body)
     })

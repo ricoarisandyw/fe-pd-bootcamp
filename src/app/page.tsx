@@ -26,7 +26,7 @@ export default function Home() {
     }
   })
   const router = useRouter()
-  const handleClickLihatSemua = () => router.push('/venue')
+  const handleClickViewAll = () => router.push('/venue')
 
   return (
     <main>
@@ -48,7 +48,7 @@ export default function Home() {
             <Dropdown options={["All"]} />
             <Dropdown options={["All"]} />
             <Dropdown options={["All"]} />
-            <PrimaryButton className='px-[20px] py-[12px]'>Find Vendors</PrimaryButton>
+            <PrimaryButton className='px-[20px] py-[12px]' onClick={handleClickViewAll}>Find Vendors</PrimaryButton>
           </div>
         </div>
       </div>
@@ -77,7 +77,7 @@ export default function Home() {
             <div className='font-black text-[24px] mt-[12px] text-[#828282] font-avenir'>Lihat rekomendasi dengan berbagai macam budget</div>
           </div>
           <div className='my-auto'>
-            <a onClick={handleClickLihatSemua} className='cursor-pointer font-black text-[24px] text-system border-b border-b-system border-solid'>Lihat semua venue</a>
+            <a onClick={handleClickViewAll} className='cursor-pointer font-black text-[24px] text-system border-b border-b-system border-solid'>Lihat semua venue</a>
           </div>
         </div>
         <div className='grid grid-cols-4 gap-x-[46px] gap-y-[38px] mt-[32px]'>
@@ -85,7 +85,7 @@ export default function Home() {
         </div>
       </div>
       {/* CHAT ADMIN */}
-      <div className='max-w-[1260px] mt-[103px] px-[90px] mb-[170px] flex mx-auto'>
+      <div className='max-w-[1260px] mt-[103px] px-[90px] mb-[170px] flex mx-auto pb-[296px]'>
         <RoundedButton className='rounded-full text-white flex px-[20px] py-[12px] mx-auto'>
           <IconChat />
           <span className='ml-[8px] my-auto'>Chat Admin</span>

@@ -37,8 +37,8 @@ export default function ItemSearchVenue(venue: Venue) {
             </div>
             <div className="ml-auto mt-[30px] flex">
                 <div className="flex gap-[6px]">
-                    {Array.from(Array(venue.star)).map((_,i) => <IconStar key={`${i}start`} />)}
-                    {Array.from(Array(5 - venue.star)).map((_,i) => <IconStarGray key={`${i}start`} />)}
+                    {Array.from(Array(Math.floor(venue.star))).map((_,i) => <IconStar key={`${i}start`} />)}
+                    {Array.from(Array(Math.floor(5 - venue.star))).map((_,i) => <IconStarGray key={`${i}start`} />)}
                 </div>
                 <span className="text-[#828282]">{`(${StringUtils.parseReview(venue.reviewCount)} reviews)`}</span>
             </div>

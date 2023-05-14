@@ -2,11 +2,12 @@
 
 import AuthService from "@/service/AuthService";
 import ObjectUtils from "@/utils/ObjectUtils";
-import useWaiter from "@/utils/useWaiter";
 import ValidationUtils from "@/utils/ValidationUtils";
+import useWaiter from "@/utils/useWaiter";
 import { Field, Formik } from "formik";
 import { useState } from "react";
 import PrimaryButton from "../button/PrimaryButton";
+import useModal from "../pages/public/hooks/useModal";
 
 const initialValue = {
     email: "",
@@ -16,6 +17,7 @@ const initialValue = {
 }
 
 export default function FormSignUp() {
+    const { hideModal, showModal } = useModal()
     const waiter = useWaiter()
     const [isValid, setValid] = useState(false)
     const [isPasswordInvalid, setPasswordInvalid] = useState(false)
@@ -24,13 +26,13 @@ export default function FormSignUp() {
         waiter.do.load();
         setTimeout(() => {
             AuthService.register({
-                data: {
-                  email: 'arisandyrico@gmail.com',
-                  fullname: 'ricoaw',
-                  password: "12341234"
-                }
+                data: value
             }).then(() => {
                 waiter.do.finish()
+                showModal(<div className="grid items-center justify-center">
+                    Register Success
+                    <PrimaryButton className="mt-2" onClick={hideModal}>OK</PrimaryButton>
+                </div>)
             }).catch(() => {
                 waiter.do.error()
             })

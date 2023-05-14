@@ -1,7 +1,7 @@
 import Package from "@/types/model/Package";
 import Venue from "@/types/model/Venue";
 import VenueDetail from "@/types/model/VenueDetail";
-import AppFetch from "./core/Service";
+import AppFetch, { AuthFetch } from "./core/Service";
 import { ReqBase } from "./core/types";
 
 const VenueService = {
@@ -29,7 +29,7 @@ const VenueService = {
          * @format YYYY-MM-DD
          */
         date: string
-    }>) => AppFetch('/venue/package/order', {
+    }>) => AuthFetch('/venue/package/order', {
         method: "POST",
         body: JSON.stringify(body)
     })

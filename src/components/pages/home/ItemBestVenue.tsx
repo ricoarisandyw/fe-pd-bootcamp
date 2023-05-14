@@ -17,8 +17,8 @@ export default function ItemBestVenue(props: Venue) {
         </div>
         <div className="flex mt-[13px]">
             <div className="flex gap-x-[6px]">
-                {Array.from(Array(props.star)).map((_, i) => <IconStar key={"yellow-star-" + i} />)}
-                {Array.from(Array(5 - props.star)).map((_, i) => <IconStarGray key={"gray-star-" + i} />)}
+                {Array.from(Array(Math.floor(props.star))).map((_, i) => <IconStar key={"yellow-star-" + i} />)}
+                {Array.from(Array(Math.round(5 - props.star))).map((_, i) => <IconStarGray key={"gray-star-" + i} />)}
             </div>
             <span className="text-[#828282] text-[16px] font-medium ml-[10px]">({StringUtils.parseReview(props.reviewCount)} reviews)</span>
         </div>

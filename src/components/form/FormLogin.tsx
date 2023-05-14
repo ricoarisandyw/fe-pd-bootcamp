@@ -2,11 +2,12 @@
 
 import AuthService from "@/service/AuthService";
 import ObjectUtils from "@/utils/ObjectUtils";
-import useWaiter from "@/utils/useWaiter";
 import ValidationUtils from "@/utils/ValidationUtils";
+import useWaiter from "@/utils/useWaiter";
 import { Field, Formik } from "formik";
 import { useState } from "react";
 import PrimaryButton from "../button/PrimaryButton";
+import { useAuth } from "../pages/public/hooks/useAuth";
 import useModal from "../pages/public/hooks/useModal";
 import FormSignUp from "./FormSignUp";
 
@@ -19,7 +20,8 @@ const initialValue = {
 
 export default function FormLogin() {
     const waiter = useWaiter()
-    const { showModal } = useModal()
+    const { setUser } = useAuth()
+    const { showModal, hideModal } = useModal()
     const [isValid, setValid] = useState(false)
     const [isPasswordInvalid, setPasswordInvalid] = useState(false)
 
@@ -27,14 +29,14 @@ export default function FormLogin() {
         waiter.do.load();
         setTimeout(() => {
             AuthService.login({
-                data: {
-                  email: 'arisandyrico@gmail.com',
-                  password: "12341234"
-                }
-            }).then(() => {
+                data: value
+            }).then((res) => {
                 waiter.do.finish()
+                hideModal()
+                if(res) setUser(res?.data)
             }).catch(() => {
                 waiter.do.error()
+                setPasswordInvalid(true)
             })
         }, 3000)
     }

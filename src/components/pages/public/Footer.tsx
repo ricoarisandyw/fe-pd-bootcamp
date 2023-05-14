@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 export default function Footer(){
-    return <footer className="py-[68px] px-[90px] flex bg-[#333333]">
+    return <footer className="fixed bottom-0 w-full py-[68px] px-[90px] flex bg-[#333333]">
         <div className="flex-1">
             <Image src='/images/logo.png' alt="logo" width={69} height={19} />
         </div>
