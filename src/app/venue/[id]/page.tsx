@@ -34,10 +34,10 @@ export default function DetailVenue() {
             }
         }).then((res) => {
             orderWaiter.do.finish()
-            if(res){
-                alert(`Order ${res?.meta.message} 🎉`)
+            if(res?.meta.code === 200){
+                alert(`Order berhasil 🎉`)
             } else {
-                alert(`Order failed`)
+                alert(`Order gagal, ${res?.meta.message}`)
             }
         }).catch(() => {
             orderWaiter.do.error()
